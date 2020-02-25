@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="jquery.min.js"></script>
+    <script src="organization.js"></script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            padding: 0;
+            margin: 0;
+        }
+
+        /*必须给高度宽度*/
+        #oz {
+            padding: 20px;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: rgb(128, 128, 128);
+            overflow: auto
+        }
+
+        .flow-container {
+            position: relative;
+        }
+
+        .node {
+            position: absolute;
+            cursor: default;
+            overflow: hidden;
+            min-width: 100px;
+            text-align: center;
+            font-size: 14px;
+            color: #fff;
+            font-family: Microsoft Yahei, arial, tahoma;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            border: 1px solid #61a5ea;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+            .node.horizontal {
+                width: 40px;
+                height: 120px;
+                min-width: 0px;
+                min-height: 0px;
+                line-height: 25px;
+            }
+
+            .node.default {
+                background-color: #61a5ea;
+                color: #f00;
+                box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+                border-radius: 5px !important;
+            }
+
+                .node.default .node-text {
+                    color: #fff;
+                    border-radius: 5px !important;
+                }
+
+                .node.default:hover {
+                    box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.3);
+                }
+
+
+            .node .node-text {
+                display: block;
+                padding: 10px 10px;
+                color: #fff;
+                text-decoration: none;
+            }
+
+        .connector {
+            position: absolute;
+            border: 1px solid #ddd;
+            background: #ddd;
+            text-align: center;
+        }
+
+            .connector label {
+                display: inline-block;
+                padding: 5px;
+                font-size: 12px;
+                font-family: Microsoft Yahei, arial, tahoma;
+            }
+
+        .red {
+            background: red !important;
+            border: 1px solid !important;
+        }
+
+        .connector.last::after {
+            position: absolute;
+            bottom: 0;
+            left: -6px;
+            display: inline-block !important;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #fff;
+            border-left: 6px solid transparent;
+            content: '';
+        }
+    </style>
+</head>
+<body>
+    <div id="oz"></div>
+</body>
+</html>
+<script>
+
+    var data = [{
+        id: "1", name: "总指挥", children: [
+            {
+                name: "一个名字很长的指挥", children: [
+                    {
+                        name: "常务总指挥"
+                    },
+                    {
+                        name: "副总指挥", children: [
+                            { name: "行政人事部", mode: "horizontal" },
+                            {
+                                name: "党群监察部", mode: "horizontal", children: [
+                                    {
+                                        name: "测试1"
+                                    }]
+                            },
+
+                            {
+                                name: "安检技术部", mode: "horizontal", lineColor: "red", children: [
+                                    {
+                                        name: "测试2"
+                                    },
+                                    {
+                                        name: "测试3"
+                                    },
+                                    {
+                                        name: "测试4"
+                                    },
+                                    {
+                                        name: "测试5"
+                                    }
+                                ]
+                            },
+                            {
+                                name: "工程部", mode: "horizontal"
+                            },
+                            { name: "机电部", mode: "horizontal" },
+                            { name: "征地移民部", mode: "horizontal" },
+                            {
+                                name: "法务招标部", mode: "horizontal"
+                            },
+                        ]
+                    },
+                    {
+                        name: "纪委书记"
+                    }
+                ]
+            }
+        ]
+
+    }]
+    $("#oz").organization({
+        data: data,
+        nodeClick: function (node) {
+            alert(node)
+        }
+    });
+
+</script>
